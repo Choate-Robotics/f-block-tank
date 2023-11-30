@@ -6,42 +6,27 @@ from subsystem.config.subsystem_base import Subsystem
 class Drivetrain(Subsystem):
     
     def init(self) -> None:
-        self.left_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_1'])
-        self.right_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_1'])
-        self.left_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_2'])
-        self.right_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_2'])
+        self.left_motors = [TalonFX(config.CAN_IDS_DRIVETRAIN['left_1']), TalonFX(config.CAN_IDS_DRIVETRAIN['left_2'])]
+        self.right_motors = [TalonFX(config.CAN_IDS_DRIVETRAIN['right_1']), TalonFX(config.CAN_IDS_DRIVETRAIN['right_2'])]
 
     def set_raw_output(self, speed: float, is_left: bool) -> None: 
-        if is_left: 
-            self.left_motor_1.set(ControlMode.PercentOutput, speed)
-            self.left_motor_2.set(ControlMode.PercentOutput, speed)
-        else:
-            self.right_motor_1.set(ControlMode.PercentOutput, speed)
-            self.right_motor_2.set(ControlMode.PercentOutput, speed)
+        for motor in (self.left_motors if is_left else self.right_motors):
+            motor.set(ControlMode.PercentOutput, speed)
 
     def set_velocity(self, velocity: float, is_left: bool) -> None:
-        if is_left:
-            self.left_motor_1.set(ControlMode.Velocity, velocity)
-            self.left_motor_2.set(ControlMode.Velocity, velocity)
-        else:
-            self.right_motor_1.set(ControlMode.Velocity, velocity)
-            self.right_motor_2.set(ControlMode.Velocity, velocity)
+        for motor in (self.left_motors if is_left else self.right_motors):
+            motor.set(ControlMode.Velocity, velocity)
 
 
     def get_raw_output(self, is_left: bool) -> float:
-        if is_left:
-            return self.left_motor_1.getMotorOutputPercent()
-        else:
-            return self.right_motor_1.getMotorOutputPercent()
+        for motor in (self.left_motors if is_left else self.right_motors):
+            return motor.getMotorOutputPercent()
+
         
     def get_velocity(self, is_left: bool) -> float:
-        if is_left:
-            return self.left_motor_1.getSelectedSensorVelocity()
-        else:
-            return self.right_motor_1.getSelectedSensorVelocity()
+        for motor in (self.left_motors if is_left else self.right_motors):
+            return motor.getSelectedSensorVelocity()
     
     def stop(self) -> None:
-        self.right_motor_1.set(0)
-        self.right_motor_2.set(0)
-        self.left_motor_1.set(0)
-        self.left_motor_2.set(0)
+        for motor in self.left_motors + self.right_motors:
+            motor.set(ControlMode.PercentOutput, 0)
