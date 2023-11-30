@@ -17,7 +17,6 @@ class Drivetrain(Subsystem):
         for motor in (self.left_motors if is_left else self.right_motors):
             motor.set(ControlMode.Velocity, velocity)
 
-
     def get_raw_output(self, is_left: bool) -> float:
         for motor in (self.left_motors if is_left else self.right_motors):
             return motor.getMotorOutputPercent()
