@@ -5,10 +5,11 @@ from subsystem.config.subsystem_base import Subsystem
 
 class Drivetrain(Subsystem):
     
-    left_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_1'])
-    right_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_1'])
-    left_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_2'])
-    right_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_2'])
+    def init(self) -> None:
+        self.left_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_1'])
+        self.right_motor_1 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_1'])
+        self.left_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['left_2'])
+        self.right_motor_2 = TalonFX(config.CAN_IDS_DRIVETRAIN['right_2'])
 
     def set_raw_output(self, speed: float, is_left: bool) -> None: 
         if is_left: 
