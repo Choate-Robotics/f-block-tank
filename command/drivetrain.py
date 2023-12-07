@@ -1,5 +1,8 @@
 from subsystem.config.subsystem_base import SubsystemCommand
 from subsystem import Drivetrain
+
+from oi.keymap import Keymap
+
 class DriveTrain(SubsystemCommand[Drivetrain]):
 
     def __init__(self, subsystem: Drivetrain):
@@ -7,10 +10,14 @@ class DriveTrain(SubsystemCommand[Drivetrain]):
         self.subsystem = subsystem
     
     def initialize(self) -> None:
-        self.subsystem.init()
+        ...
 
     def execute(self) -> None:
-        ...
+        left = Keymap.Drivetrain.DRIVE_X_AXIS.value
+        right = Keymap.Drivetrain.DRIVE_Y_AXIS.value
+
+        self.subsystem.set_raw_output(left, True)
+        self.subsystem.set_raw_output(right, False)
 
     def isFinished(self) -> bool:
         return False
