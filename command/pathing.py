@@ -32,10 +32,14 @@ class Path:
         config.setEndVelocity(self.end_velocity)
         config.setReversed(self.rev)
 
+    def generate(self):
         # generate Trajectory
         self.trajectory = TrajectoryGenerator.generateTrajectory(
             start=self.start_pose,
             interiorWaypoints=self.waypoints,
             end=self.end_pose,
-            config=config,
+            config=self.config,
         )
+        return self.trajectory
+    
+
