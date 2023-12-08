@@ -4,9 +4,11 @@ from wpimath.controller import RamseteController
 from robotpy_toolkit_7407.command import SubsystemCommand
 from wpilib import Timer
 from wpimath.kinematics import DifferentialDriveKinematics
+from subsystem import Drivetrain
+import constants
+
 
 class Path:
-
     def __init__(self, 
                  start_pose: Pose2d,
                  waypoints: list[Translation2d],
@@ -47,15 +49,15 @@ class Path:
         return self.trajectory
     
 
-class FollowPath(SubsystemCommand):
+class FollowPath(SubsystemCommand[Drivetrain]):
 
-    def __init__(self, subsytem, path: Path):
+    def __init__(self, subsytem: Drivetrain, path: Path):
         self.subsystem = subsytem
         self.controller = RamseteController()
         self.path = path
         self.timer = Timer()
         self.trajectory = None
-        self.kinematics = DifferentialDriveKinematics(TODO: WHEEL_CONSTANT)
+        self.kinematics = DifferentialDriveKinematics(constants.drivetrain_wheel_track)
         self.tt = None
         self.left = None
         self.right = None
@@ -65,7 +67,7 @@ class FollowPath(SubsystemCommand):
         self.timer.reset()
         self.trajectory = self.path.generate()
         self.timer.start()
-        self.tt = self.trajectory.totalTime()
+        self.tt = self.trajectory.totalTime() # Total time it takes for the trajectory to finish
 
     def execute(self) -> None:
         # In case robot didn't get to endpoint in time
@@ -76,17 +78,25 @@ class FollowPath(SubsystemCommand):
         # Use Ramsete to calculate adjusted motor speeds
         goal = self.trajectory.sample(current_time)
         adjusted_speeds = self.controller.calculate(self.subsystem.pose, goal)
+
+        # Translate adjusted speed to left and right motor speed
         self.left, self.right = self.kinematics.toWheelSpeeds(adjusted_speeds)
+        Drivetrain.set_velocity(self.left, is_left=True)
+        Drivetrain.set_velocity(self.right, is_left=False)
+
 
     def isFinished(self) -> bool:
-        # Check if finished
-        if min(self.left, .1) == .1 and min(self.right, .1) == .1:
-            pose_final = self.trajectory.sample(self.tt)
-            current_pose = self.subsystem.pose
-            pass
+        # Check if finished by comparing the distance between the current pose and the final pose
+        pose_final = self.trajectory.sample(self.tt)
+        current_pose = self.subsystem.pose
+        if pose_final.pose.translation().distance(current_pose) < .2:
+            return True
+        return False
 
     def end(self, interrupted: bool) -> None:
-        pass
+        # Stop the motors
+        Drivetrain.set_velocity(0, is_left=True)
+        Drivetrain.set_velocity(0, is_left=False)
         
 
     
