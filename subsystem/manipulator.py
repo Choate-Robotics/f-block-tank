@@ -25,15 +25,15 @@ class Manipulator(Subsystem):
 
     def set_velocity(self, velocity: float, is_left: bool) -> None:
         if is_left:
-            self.left_motor.set(ControlMode.Velocity, velocity * constants.intake_gear_ratio)
+            self.left_motor.set(ControlMode.Velocity, velocity * constants.INTAKE_GEAR_RATIO)
         else:
-            self.right_motor.set(ControlMode.Velocity, velocity * constants.intake_gear_ratio)
+            self.right_motor.set(ControlMode.Velocity, velocity * constants.INTAKE_GEAR_RATIO)
 
     def get_velocity(self, is_left: bool) -> float:
         if is_left:
-            return self.left_motor.getSelectedSensorVelocity()/constants.intake_gear_ratio
+            return self.left_motor.getSelectedSensorVelocity()/constants.INTAKE_GEAR_RATIO
         else:
-            return self.right_motor.getSelectedSensorVelocity()/constants.intake_gear_ratio
+            return self.right_motor.getSelectedSensorVelocity()/constants.INTAKE_GEAR_RATIO
 
     def stop(self) -> None:
         self.left_motor.set(ControlMode.PercentOutput, 0)
