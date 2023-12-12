@@ -29,9 +29,9 @@ class Drivetrain(Subsystem):
 
     def set_velocity(self, velocity: float, is_left: bool) -> None:
         if is_left:
-            self.left_motor.set(ControlMode.Velocity, velocity * constants.drivetrain_move_gear_ratio)
+            self.left_motor.set(ControlMode.Velocity, velocity * constants.DRIVETRAIN_GEAR_RATIO)
         else:
-            self.right_motor.set(ControlMode.Velocity, velocity * constants.drivetrain_move_gear_ratio)
+            self.right_motor.set(ControlMode.Velocity, velocity * constants.DRIVETRAIN_GEAR_RATIO)
 
     def get_raw_output(self, is_left: bool) -> float:
         if is_left:
@@ -41,9 +41,9 @@ class Drivetrain(Subsystem):
 
     def get_velocity(self, is_left: bool) -> float:
         if is_left:
-            return self.left_motor.getSelectedSensorVelocity()/constants.drivetrain_move_gear_ratio
+            return self.left_motor.getSelectedSensorVelocity()/constants.DRIVETRAIN_GEAR_RATIO
         else:
-            return self.right_motor.getSelectedSensorVelocity()/constants.drivetrain_move_gear_ratio
+            return self.right_motor.getSelectedSensorVelocity()/constants.DRIVETRAIN_GEAR_RATIO
     
     def stop(self) -> None:
         self.left_motor.set(ControlMode.PercentOutput, 0)
