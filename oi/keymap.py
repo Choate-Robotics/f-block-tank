@@ -47,3 +47,6 @@ class Keymap:
         AUTO_ROUTE = commands2.Trigger(
             lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
         )
+    class Manipulator:
+        RUN_IN = JoystickAxis(Controllers.DRIVER, controllerDRIVER.RT)
+        RUN_OUT = JoystickAxis(Controllers.DRIVER, controllerDRIVER.LT)

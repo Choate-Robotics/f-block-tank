@@ -30,6 +30,8 @@ subsystem.right_motor = MockTalonSRX(subsystem.right_motor)
 
 # Test motor init class
 def test_init():
+
+    subsystem.init()
     
     assert subsystem.left_motor is not None
     assert subsystem.right_motor is not None
@@ -40,18 +42,13 @@ def test_raw_output():
 
     num = random.uniform(-1, 1)
 
-    subsystem.set_raw_output(num, True)
-    assert subsystem.get_raw_output(True) == num
+    subsystem.set_raw_output(num)
+    assert subsystem.get_raw_output() == num
 
-    subsystem.set_raw_output(num, False)
-    assert subsystem.get_raw_output(False) == num
 
 def test_velocity():
 
     num = random.uniform(0, 6380)
 
-    subsystem.set_velocity(num, True)
-    assert round((subsystem.get_velocity(True)), 2) == round(num, 2)
-
-    subsystem.set_velocity(num, False)
-    assert round((subsystem.get_velocity(False)), 2) == round(num, 2)
+    subsystem.set_velocity(num)
+    assert round((subsystem.get_velocity()), 2) == round(num, 2)
