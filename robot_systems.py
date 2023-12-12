@@ -4,6 +4,7 @@ import wpilib
 
 class Robot:
     drivetrain = subsystem.Drivetrain()
+    manipulator = subsystem.Manipulator()
 
 
 class Pneumatics:
