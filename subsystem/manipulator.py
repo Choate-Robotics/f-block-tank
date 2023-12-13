@@ -13,6 +13,8 @@ class Manipulator(Subsystem):
         super().__init__()
 
     def init(self) -> None:
+        # Invert right motor so its opposite of left value
+        self.right_motor.setInverted(True)
         self.right_motor.follow(self.left_motor, FollowerType.PercentOutput)
 
     def set_raw_output(self, speed: float) -> None:
