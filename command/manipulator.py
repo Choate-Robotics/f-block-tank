@@ -3,7 +3,7 @@ from subsystem import Manipulator
 
 from oi.keymap import Keymap
 
-class Mainpulator(SubsystemCommand[Manipulator]):
+class Manipulator(SubsystemCommand[Manipulator]):
 
     def __init__(self, subsystem: Manipulator):
         super().__init__(subsystem)
