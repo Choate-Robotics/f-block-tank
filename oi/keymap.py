@@ -32,21 +32,21 @@ class Keymap:
         DRIVE_ROTATION_AXIS = JoystickAxis(
             Controllers.DRIVER, controllerDRIVER.R_JOY[0]
         )
-        RESET_GYRO = commands2.Trigger(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.B
-        )
-        RESET_ODOMETRY = commands2.Trigger(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.Y
-        )
-        SLOW_FORWARD = commands2.Trigger(
-            lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.RT) > 0.5
-        )
-        X_MODE = commands2.Trigger(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.X
-        )
-        AUTO_ROUTE = commands2.Trigger(
-            lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
-        )
+        # RESET_GYRO = commands2.Trigger(
+        #     Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.B
+        # )
+        # RESET_ODOMETRY = commands2.Trigger(
+        #     Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.Y
+        # )
+        # SLOW_FORWARD = commands2.Trigger(
+        #     lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.RT) > 0.5
+        # )
+        # X_MODE = commands2.Trigger(
+        #     Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.X
+        # )
+        # AUTO_ROUTE = commands2.Trigger(
+        #     lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
+        # )
     class Manipulator:
         RUN_IN = JoystickAxis(Controllers.DRIVER, controllerDRIVER.RT)
         RUN_OUT = JoystickAxis(Controllers.DRIVER, controllerDRIVER.LT)
