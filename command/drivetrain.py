@@ -13,7 +13,7 @@ class DriveTrain(SubsystemCommand[Drivetrain]):
         ...
 
     def execute(self) -> None:
-        left = Keymap.Drivetrain.DRIVE_X_AXIS.value
+        left = -Keymap.Drivetrain.DRIVE_X_AXIS.value
         right = Keymap.Drivetrain.DRIVE_Y_AXIS.value
 
         self.subsystem.set_raw_output(left, True)
