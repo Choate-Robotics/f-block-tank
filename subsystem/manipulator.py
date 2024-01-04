@@ -19,12 +19,14 @@ class Manipulator(Subsystem):
 
     def set_raw_output(self, speed: float) -> None:
         self.left_motor.set(ControlMode.PercentOutput, speed)
+        self.right_motor.set(ControlMode.PercentOutput, -speed)
 
     def get_raw_output(self) -> float:
         return self.left_motor.getMotorOutputPercent()
 
     def set_velocity(self, velocity: float) -> None:
         self.left_motor.set(ControlMode.Velocity, velocity * constants.INTAKE_GEAR_RATIO)
+        self.right_motor.set(ControlMode.Velocity, -(velocity * constants.INTAKE_GEAR_RATIO))
 
     def get_velocity(self) -> float:
         return self.left_motor.getSelectedSensorVelocity()/constants.INTAKE_GEAR_RATIO

@@ -26,5 +26,5 @@ class Manipulator(SubsystemCommand[Manipulator]):
     def isFinished(self) -> bool:
         return False
     
-    def end(self) -> None:
-        self.subsystem.stop()
+    def end(self, interrupted) -> None:
+        pass

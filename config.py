@@ -1,6 +1,6 @@
 CAN_IDS_MANIPULATOR = {
-    'left_motor': 5,
-    'right_motor': 6,
+    'left_motor': 6,
+    'right_motor': 5,
 }
 CAN_IDS_DRIVETRAIN = {
     'left_1': 1,

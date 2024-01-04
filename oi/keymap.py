@@ -48,5 +48,5 @@ class Keymap:
         #     lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
         # )
     class Manipulator:
-        RUN_IN = JoystickAxis(Controllers.DRIVER, controllerDRIVER.RT)
-        RUN_OUT = JoystickAxis(Controllers.DRIVER, controllerDRIVER.LT)
+        RUN_IN = JoystickAxis(Controllers.DRIVER, 3)
+        RUN_OUT = JoystickAxis(Controllers.DRIVER, 2)
